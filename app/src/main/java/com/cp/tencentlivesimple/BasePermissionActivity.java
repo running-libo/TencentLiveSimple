@@ -3,6 +3,12 @@ package com.cp.tencentlivesimple;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +22,16 @@ public class BasePermissionActivity extends Activity {
     private static final int PERMISSION_REQUESTCODE = 100;
     /** 是否询问过一遍请求权限 */
     private boolean isAskedPermission;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //设置全屏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
 
     /**
      * 请求需要通过的权限

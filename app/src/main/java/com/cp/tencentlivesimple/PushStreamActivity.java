@@ -4,6 +4,8 @@ import android.Manifest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
@@ -16,6 +18,7 @@ import java.util.List;
  * description 推流页
  */
 public class PushStreamActivity extends BasePermissionActivity implements View.OnClickListener {
+    public static final String liveUrl = "rtmp://65799.livepush.myqcloud.com/HuyaLive/huyalive?txSecret=9cb224c7d598a79cbfc76f8ab61a847d&txTime=5FDCAC29";
     private TXLivePusher livePusher;
     private TXCloudVideoView videoView;
     private Button btnClose, btnSwitch;
@@ -73,10 +76,10 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
      */
     private void startPreview() {
         livePusher.startCameraPreview(videoView);
-        int ret = livePusher.startPusher(MainActivity.liveUrl);
-        if (ret == -5) {
-            Log.i("minfo", "startRTMPPush: license 校验失败");
-        }
+//        int ret = livePusher.startPusher(liveUrl);
+//        if (ret == -5) {
+//            Log.i("minfo", "startRTMPPush: license 校验失败");
+//        }
     }
 
     /**
