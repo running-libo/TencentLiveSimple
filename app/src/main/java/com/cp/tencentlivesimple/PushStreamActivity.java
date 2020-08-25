@@ -2,11 +2,10 @@ package com.cp.tencentlivesimple;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -22,6 +21,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     private TXLivePusher livePusher;
     private TXCloudVideoView videoView;
     private Button btnClose, btnSwitch;
+    private ImageView ivSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,10 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         videoView = findViewById(R.id.videoview_push);
         btnClose = findViewById(R.id.btn_close);
         btnSwitch = findViewById(R.id.btn_switch);
+        ivSwitch = findViewById(R.id.iv_switch);
         btnClose.setOnClickListener(this);
         btnSwitch.setOnClickListener(this);
+        ivSwitch.setOnClickListener(this);
     }
 
     /**
@@ -103,7 +105,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             case R.id.btn_close:
                 closeLive();
                 break;
-            case R.id.btn_switch:
+            case R.id.iv_switch:
                 livePusher.switchCamera();
                 break;
         }
