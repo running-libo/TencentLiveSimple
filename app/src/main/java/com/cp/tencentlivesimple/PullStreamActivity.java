@@ -14,7 +14,7 @@ import com.tencent.rtmp.ui.TXCloudVideoView;
 public class PullStreamActivity extends BasePermissionActivity {
     private TXLivePlayer livePlayer;
     private TXCloudVideoView videoView;
-    private String playUrl = "https://65799.liveplay.myqcloud.com/live/tencentlivesimple.flv";
+    private String playUrl = "https://libonet.club/HuyaLive/huyalive.flv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
