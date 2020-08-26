@@ -9,4 +9,5 @@
     <color name="color_black">#000</color>
     <color name="color_divider">#109B9B9B</color>
     <color name="color_yellow">#ffa700</color>
+    <color name="color_red">#fb5250</color>
 </resources>

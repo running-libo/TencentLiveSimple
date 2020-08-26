@@ -10,6 +10,8 @@ public class LiveFinishActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_finish);
+
+        findViewById(R.id.ivClose).setOnClickListener(v -> finish());
     }
 
 }

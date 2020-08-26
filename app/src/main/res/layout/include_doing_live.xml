@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/ivHeader"
@@ -36,6 +36,21 @@
         app:layout_constraintLeft_toRightOf="@id/ivHeader"
         app:layout_constraintBottom_toBottomOf="@id/ivHeader"
         android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="00:04:42"
+        app:layout_constraintLeft_toRightOf="@id/tvFance"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/color_white"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:drawablePadding="5dp"
+        android:visibility="gone"
+        android:drawableLeft="@drawable/shape_red_dot"
+        app:layout_constraintBottom_toBottomOf="@id/tvFance"/>
 
     <ImageView
         android:id="@+id/ivNetwork"
@@ -132,5 +147,15 @@
         app:layout_constraintRight_toLeftOf="@id/ivRank"
         app:layout_constraintTop_toTopOf="@id/ivClose"
         android:layout_marginRight="15dp"/>
+
+    <ImageView
+        android:id="@+id/ivTreasure"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="15dp"
+        android:background="@mipmap/ic_treasure"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

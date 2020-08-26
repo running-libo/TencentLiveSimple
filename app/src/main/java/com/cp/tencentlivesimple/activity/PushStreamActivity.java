@@ -3,9 +3,13 @@ package com.cp.tencentlivesimple.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import com.cp.tencentlivesimple.util.TimeUtil;
 import com.cp.tencentlivesimple.view.ConfirmDialog;
 import com.cp.tencentlivesimple.R;
 import com.cp.tencentlivesimple.view.CountDownTextView;
@@ -17,7 +21,7 @@ import java.util.List;
 
 /**
  * create by libo
- * create on 2019-10-29
+ * create on 2020-7-29
  * description 推流页
  */
 public class PushStreamActivity extends BasePermissionActivity implements View.OnClickListener {
@@ -26,10 +30,19 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     private TXCloudVideoView videoView;
     private TXLivePushConfig pushConfig;
     private ImageView ivSwitch;
-    private TextView tvStartLive, tvWatch;
+    private TextView tvStartLive, tvWatch, tvDuration;
     private CountDownTextView tvCountDown;
     private View viewStartLive, viewDoingLive;
     private ImageView ivClose;
+    private int curDuration;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            curDuration++;
+            tvDuration.setText(TimeUtil.duration2Time(curDuration));
+            handler.sendEmptyMessageDelayed(0, 1000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +64,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         tvStartLive = findViewById(R.id.tv_startLive);
         tvWatch = findViewById(R.id.tv_watch);
         tvCountDown = findViewById(R.id.tv_countdown);
+        tvDuration = findViewById(R.id.tvDuration);
         viewStartLive = findViewById(R.id.view_startlive);
         viewDoingLive = findViewById(R.id.view_doinglive);
         viewDoingLive.setVisibility(View.GONE);
@@ -61,17 +75,20 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         tvWatch.setOnClickListener(this);
         ivClose.setOnClickListener(this);
 
-        //直播开始
         tvCountDown.setListener(new CountDownTextView.OnCountDownFinishListener() {
             @Override
             public void onStartCount() {
+                //直播倒计时开始
                 viewStartLive.setVisibility(View.GONE);
                 viewDoingLive.setVisibility(View.VISIBLE);
+                curDuration = 0;
             }
 
             @Override
             public void onFinish() {
-//                livePusher.startPusher(liveUrl);
+                //直播开始
+                startTimerTask();
+//                livePusher.startPusher(liveUrl);  暂不推流
             }
         });
     }
@@ -92,6 +109,13 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        startPreview();
     }
 
     /**
@@ -118,6 +142,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     private void stopPreview() {
         livePusher.stopPusher();
         livePusher.stopCameraPreview(true);
+        handler.removeCallbacksAndMessages(null);
     }
 
     @Override
@@ -171,9 +196,25 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                 .setOnClickListener(new ConfirmDialog.OnClickListener() {
                     @Override
                     public void onConfirm() {
-                        startActivity(new Intent(PushStreamActivity.this, LiveFinishActivity.class));
-                        finish();
+                        finishLive();
                     }
                 });
+    }
+
+    /**
+     * 结束直播
+     */
+    private void finishLive() {
+        startActivity(new Intent(PushStreamActivity.this, LiveFinishActivity.class));
+        stopPreview();
+        //恢复未开播前的菜单页面
+        viewStartLive.setVisibility(View.VISIBLE);
+        viewDoingLive.setVisibility(View.GONE);
+        tvDuration.setVisibility(View.GONE);
+    }
+
+    private void startTimerTask() {
+        tvDuration.setVisibility(View.VISIBLE);
+        handler.sendEmptyMessage(0);
     }
 }
