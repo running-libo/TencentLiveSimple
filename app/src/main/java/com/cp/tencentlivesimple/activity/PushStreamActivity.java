@@ -3,10 +3,17 @@ package com.cp.tencentlivesimple.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
+import android.view.animation.AnimationSet;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.cp.tencentlivesimple.util.AnimUtils;
 import com.cp.tencentlivesimple.view.ConfirmDialog;
 import com.cp.tencentlivesimple.R;
 import com.tencent.rtmp.TXLiveConstants;
@@ -26,7 +33,35 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     private TXCloudVideoView videoView;
     private TXLivePushConfig pushConfig;
     private ImageView ivSwitch;
-    private TextView tvStartLive, tvWatch;
+    private TextView tvStartLive, tvWatch, tvCountDown;
+    private int countDownTime = 3;
+
+    /** 开始播放计时handler */
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            if (countDownTime>0) {
+                //3 2 1
+                tvCountDown.setVisibility(View.VISIBLE);
+                tvCountDown.setText(countDownTime + "");
+                handler.sendEmptyMessageDelayed(0, 1500);
+                playCountDownAnim();
+                countDownTime--;
+            } else if (countDownTime == 0) {
+                // 0
+                tvCountDown.setText("GO");
+                handler.sendEmptyMessageDelayed(0, 1500);
+                playCountDownAnim();
+                countDownTime--;
+            } else {
+                //小于0
+                tvCountDown.setVisibility(View.GONE);
+                livePusher.startPusher(liveUrl);
+                handler.removeCallbacksAndMessages(null);
+            }
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +82,8 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         ivSwitch = findViewById(R.id.iv_switch);
         tvStartLive = findViewById(R.id.tv_startLive);
         tvWatch = findViewById(R.id.tv_watch);
+        tvCountDown = findViewById(R.id.tv_countdown);
+
         ivSwitch.setOnClickListener(this);
         tvStartLive.setOnClickListener(this);
         tvWatch.setOnClickListener(this);
@@ -111,7 +148,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                 livePusher.switchCamera();
                 break;
             case R.id.tv_startLive:
-                livePusher.startPusher(liveUrl);
+                startLive();
                 break;
             case R.id.tv_watch:
                 startActivity(new Intent(this, PullStreamActivity.class));
@@ -138,6 +175,23 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             // 因为采集旋转了，为了保证本地渲染是正的，则设置渲染角度为90度。 
             livePusher.setRenderRotation(90);
         }
+    }
+
+    /**
+     * 开始直播倒计时
+     */
+    private void startLive() {
+        handler.sendEmptyMessage(0);
+    }
+
+    /**
+     * 播放倒计时动画
+     */
+    private void playCountDownAnim() {
+        AnimationSet animationSet = new AnimationSet(true);
+        animationSet.addAnimation(AnimUtils.scaleAnim(1000, 1.5f, 1, 0));
+        animationSet.addAnimation(AnimUtils.alphaAnim(0.5f, 0.9f, 1000, 0));
+        tvCountDown.startAnimation(animationSet);
     }
 
     private void closeLive() {

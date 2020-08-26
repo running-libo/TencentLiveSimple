@@ -3,7 +3,6 @@ package com.cp.tencentlivesimple.activity;
 import android.os.Bundle;
 
 import com.cp.tencentlivesimple.R;
-import com.cp.tencentlivesimple.activity.BasePermissionActivity;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
