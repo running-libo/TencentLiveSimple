@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.LiveFinishActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_blur2"
+        android:scaleType="centerCrop"
+        android:foreground="#8000"/>
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:padding="5dp"
+        android:src="@mipmap/ic_close"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="16dp"/>
+
+    <TextView
+        android:id="@+id/tvFinished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="直播已结束"
+        android:textSize="24sp"
+        android:textColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="90dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvPopular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="人气峰值达到1.1万！观众越来越多，继续努力！"
+        android:textColor="@color/color_white"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@id/tvFinished"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="25dp"/>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/view2"
+        app:layout_constraintTop_toBottomOf="@id/tvPopular" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintLeft_toRightOf="@id/view1"
+        app:layout_constraintRight_toLeftOf="@id/view3"
+        app:layout_constraintTop_toBottomOf="@id/tvPopular" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintLeft_toRightOf="@id/view2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPopular" />
+
+    <TextView
+        android:id="@+id/tvPopularCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11777"
+        android:textColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="@id/view1"
+        app:layout_constraintLeft_toLeftOf="@id/view1"
+        app:layout_constraintRight_toRightOf="@id/view1"
+        android:textSize="19sp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="人气峰值"
+        android:textColor="@color/color_simwhite"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toLeftOf="@id/view1"
+        app:layout_constraintRight_toRightOf="@id/view1"
+        app:layout_constraintTop_toBottomOf="@id/tvPopularCount"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvNewFollow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:textColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="@id/view2"
+        app:layout_constraintLeft_toLeftOf="@id/view2"
+        app:layout_constraintRight_toRightOf="@id/view2"
+        android:textSize="19sp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="新增订阅"
+        android:textColor="@color/color_simwhite"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toLeftOf="@id/view2"
+        app:layout_constraintRight_toRightOf="@id/view2"
+        app:layout_constraintTop_toBottomOf="@id/tvNewFollow"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:04:42"
+        android:textColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="@id/view3"
+        app:layout_constraintLeft_toLeftOf="@id/view3"
+        app:layout_constraintRight_toRightOf="@id/view3"
+        android:textSize="19sp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="直播时长"
+        android:textColor="@color/color_simwhite"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toLeftOf="@id/view3"
+        app:layout_constraintRight_toRightOf="@id/view3"
+        app:layout_constraintTop_toBottomOf="@id/tvDuration"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvShare"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:text="分享"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/shape_yellow_roundbig"
+        android:textColor="@color/color_white"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toBottomOf="@id/view1"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

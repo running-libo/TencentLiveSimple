@@ -24,8 +24,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.PullStreamActivity"/>
-        <activity android:name=".activity.PushStreamActivity"
+        <activity android:name=".activity.LiveFinishActivity"></activity>
+        <activity android:name=".activity.PullStreamActivity" />
+        <activity
+            android:name=".activity.PushStreamActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

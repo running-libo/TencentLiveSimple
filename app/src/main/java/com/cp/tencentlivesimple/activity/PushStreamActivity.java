@@ -171,6 +171,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                 .setOnClickListener(new ConfirmDialog.OnClickListener() {
                     @Override
                     public void onConfirm() {
+                        startActivity(new Intent(PushStreamActivity.this, LiveFinishActivity.class));
                         finish();
                     }
                 });
