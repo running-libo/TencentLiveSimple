@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -148,17 +147,4 @@
         android:textColor="@color/color_white"
         android:padding="10dp"/>
 
-    <TextView
-        android:id="@+id/tv_countdown"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:textColor="@color/color_white"
-        android:textSize="60sp"
-        android:gravity="center"
-        android:padding="20dp"
-        tools:text="3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

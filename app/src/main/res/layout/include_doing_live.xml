@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/ivHeader"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@mipmap/default_photo_circle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:id="@+id/tvFance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="粉丝 0"
+        android:textColor="@color/color_white"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@id/ivHeader"
+        app:layout_constraintTop_toTopOf="@id/ivHeader"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/tvPopular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="人气 0"
+        android:textColor="@color/color_white"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@id/ivHeader"
+        app:layout_constraintBottom_toBottomOf="@id/ivHeader"
+        android:layout_marginLeft="4dp"/>
+
+    <ImageView
+        android:id="@+id/ivNetwork"
+        android:layout_width="20dp"
+        android:layout_height="14dp"
+        android:src="@mipmap/ic_net"
+        app:layout_constraintBottom_toBottomOf="@id/ivHeader"
+        app:layout_constraintLeft_toRightOf="@id/tvPopular"
+        android:layout_marginLeft="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="216KB/S"
+        android:textColor="@color/color_white"
+        android:gravity="center"
+        app:layout_constraintLeft_toRightOf="@id/ivNetwork"
+        app:layout_constraintBottom_toBottomOf="@id/ivNetwork"
+        android:layout_marginLeft="6dp"
+        android:textSize="13sp"/>
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:src="@mipmap/ic_close"
+        android:padding="7dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivHeader"
+        android:layout_marginRight="15dp"/>
+
+    <ImageView
+        android:id="@+id/ivMore"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_more"
+        android:padding="8dp"
+        android:background="@drawable/shape_halfblack_circle"
+        app:layout_constraintRight_toLeftOf="@id/ivClose"
+        app:layout_constraintTop_toTopOf="@id/ivClose"
+        android:layout_marginRight="15dp"/>
+
+    <ImageView
+        android:id="@+id/ivSwitch"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/switch_camera"
+        android:padding="8dp"
+        android:background="@drawable/shape_halfblack_circle"
+        app:layout_constraintRight_toLeftOf="@id/ivMore"
+        app:layout_constraintTop_toTopOf="@id/ivClose"
+        android:layout_marginRight="15dp"/>
+
+    <ImageView
+        android:id="@+id/ivBeauty"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_beauty_bar"
+        android:padding="8dp"
+        android:background="@drawable/shape_halfblack_circle"
+        app:layout_constraintRight_toLeftOf="@id/ivSwitch"
+        app:layout_constraintTop_toTopOf="@id/ivClose"
+        android:layout_marginRight="15dp"/>
+
+    <ImageView
+        android:id="@+id/ivStar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_star"
+        android:padding="8dp"
+        android:background="@drawable/shape_halfblack_circle"
+        app:layout_constraintRight_toLeftOf="@id/ivBeauty"
+        app:layout_constraintTop_toTopOf="@id/ivClose"
+        android:layout_marginRight="15dp"/>
+
+    <ImageView
+        android:id="@+id/ivRank"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_rank"
+        android:padding="8dp"
+        android:background="@drawable/shape_halfblack_circle"
+        app:layout_constraintRight_toLeftOf="@id/ivStar"
+        app:layout_constraintTop_toTopOf="@id/ivClose"
+        android:layout_marginRight="15dp"/>
+
+    <ImageView
+        android:id="@+id/ivMusic"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_music"
+        android:padding="8dp"
+        android:background="@drawable/shape_halfblack_circle"
+        app:layout_constraintRight_toLeftOf="@id/ivRank"
+        app:layout_constraintTop_toTopOf="@id/ivClose"
+        android:layout_marginRight="15dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

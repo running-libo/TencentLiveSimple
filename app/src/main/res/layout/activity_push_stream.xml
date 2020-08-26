@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.PushStreamActivity">
 
     <com.tencent.rtmp.ui.TXCloudVideoView
@@ -11,5 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <include layout="@layout/include_start_live"/>
+    <include layout="@layout/include_start_live"
+        android:id="@+id/view_startlive"/>
+
+    <include layout="@layout/include_doing_live"
+        android:id="@+id/view_doinglive"
+        android:visibility="gone"/>
+
+    <com.cp.tencentlivesimple.view.CountDownTextView
+        android:id="@+id/tv_countdown"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:textColor="@color/color_white"
+        android:textSize="130sp"
+        android:gravity="center"
+        tools:text="3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
