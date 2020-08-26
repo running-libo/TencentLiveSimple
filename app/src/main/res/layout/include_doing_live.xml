@@ -94,13 +94,24 @@
         android:layout_marginRight="15dp"/>
 
     <ImageView
+        android:id="@+id/ivPixel"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_quality"
+        android:padding="8dp"
+        android:background="@drawable/shape_halfblack_circle"
+        app:layout_constraintRight_toLeftOf="@id/ivMore"
+        app:layout_constraintTop_toTopOf="@id/ivClose"
+        android:layout_marginRight="15dp"/>
+
+    <ImageView
         android:id="@+id/ivSwitch"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@mipmap/switch_camera"
         android:padding="8dp"
         android:background="@drawable/shape_halfblack_circle"
-        app:layout_constraintRight_toLeftOf="@id/ivMore"
+        app:layout_constraintRight_toLeftOf="@id/ivPixel"
         app:layout_constraintTop_toTopOf="@id/ivClose"
         android:layout_marginRight="15dp"/>
 

@@ -27,6 +27,7 @@
         android:textSize="130sp"
         android:gravity="center"
         tools:text="3"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

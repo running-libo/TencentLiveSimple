@@ -10,9 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.cp.tencentlivesimple.util.TimeUtil;
-import com.cp.tencentlivesimple.view.ConfirmDialog;
+import com.cp.tencentlivesimple.view.ExitConfirmDialog;
 import com.cp.tencentlivesimple.R;
 import com.cp.tencentlivesimple.view.CountDownTextView;
+import com.cp.tencentlivesimple.view.SwitchQualityDialog;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
@@ -29,7 +30,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     private TXLivePusher livePusher;
     private TXCloudVideoView videoView;
     private TXLivePushConfig pushConfig;
-    private ImageView ivSwitch;
+    private ImageView ivSwitch, ivSwitch2, ivPixel;
     private TextView tvStartLive, tvWatch, tvDuration;
     private CountDownTextView tvCountDown;
     private View viewStartLive, viewDoingLive;
@@ -61,6 +62,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     private void initView() {
         videoView = findViewById(R.id.videoview_push);
         ivSwitch = findViewById(R.id.iv_switch);
+        ivSwitch2 = findViewById(R.id.ivSwitch);
         tvStartLive = findViewById(R.id.tv_startLive);
         tvWatch = findViewById(R.id.tv_watch);
         tvCountDown = findViewById(R.id.tv_countdown);
@@ -69,11 +71,14 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         viewDoingLive = findViewById(R.id.view_doinglive);
         viewDoingLive.setVisibility(View.GONE);
         ivClose = findViewById(R.id.ivClose);
+        ivPixel = findViewById(R.id.ivPixel);
 
         ivSwitch.setOnClickListener(this);
+        ivSwitch2.setOnClickListener(this);
         tvStartLive.setOnClickListener(this);
         tvWatch.setOnClickListener(this);
         ivClose.setOnClickListener(this);
+        ivPixel.setOnClickListener(this);
 
         tvCountDown.setListener(new CountDownTextView.OnCountDownFinishListener() {
             @Override
@@ -155,6 +160,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivSwitch:
             case R.id.iv_switch:
                 livePusher.switchCamera();
                 break;
@@ -166,6 +172,9 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                 break;
             case R.id.ivClose:
                 closeLive();
+                break;
+            case R.id.ivPixel:
+                new SwitchQualityDialog(this, R.style.basedialog_style);
                 break;
         }
     }
@@ -192,8 +201,8 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     }
 
     private void closeLive() {
-        new ConfirmDialog(this, R.style.basedialog_style)
-                .setOnClickListener(new ConfirmDialog.OnClickListener() {
+        new ExitConfirmDialog(this, R.style.basedialog_style)
+                .setOnClickListener(new ExitConfirmDialog.OnClickListener() {
                     @Override
                     public void onConfirm() {
                         finishLive();

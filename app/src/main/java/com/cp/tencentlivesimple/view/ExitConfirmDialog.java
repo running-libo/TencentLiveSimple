@@ -14,14 +14,14 @@ import com.cp.tencentlivesimple.R;
  * create on 2019/10/29
  * description 确定公用弹框
  */
-public class ConfirmDialog extends Dialog {
+public class ExitConfirmDialog extends Dialog {
     TextView tvDialogTitle;
     TextView tvContent;
     TextView tvSureadd;
     TextView tvCanceladd;
     private Context context;
 
-    public ConfirmDialog(@NonNull Context context, int themeResId) {
+    public ExitConfirmDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
         setContentView(R.layout.dialog_confirm);
 
@@ -66,7 +66,7 @@ public class ConfirmDialog extends Dialog {
      * @param title
      * @return
      */
-    public ConfirmDialog setTitle(String title) {
+    public ExitConfirmDialog setTitle(String title) {
         tvDialogTitle.setText(title);
         return this;
     }
