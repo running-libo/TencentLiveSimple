@@ -1,4 +1,4 @@
-package com.cp.tencentlivesimple;
+package com.cp.tencentlivesimple.app;
 
 import android.app.Application;
 import com.tencent.rtmp.TXLiveBase;

@@ -1,7 +1,9 @@
-package com.cp.tencentlivesimple;
+package com.cp.tencentlivesimple.activity;
 
 import android.os.Bundle;
 
+import com.cp.tencentlivesimple.R;
+import com.cp.tencentlivesimple.activity.BasePermissionActivity;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -14,7 +16,7 @@ import com.tencent.rtmp.ui.TXCloudVideoView;
 public class PullStreamActivity extends BasePermissionActivity {
     private TXLivePlayer livePlayer;
     private TXCloudVideoView videoView;
-    private String playUrl = "https://libonet.club/HuyaLive/huyalive.flv";
+    private String playUrl = "rtmp://libonet.club/TencentLivesSimple/huyalive";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +41,13 @@ public class PullStreamActivity extends BasePermissionActivity {
         //第二个参数为播放地址类型
         livePlayer.startPlay(playUrl, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
         livePlayer.setRenderMode(TXLiveConstants.RENDER_MODE_ADJUST_RESOLUTION);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        livePlayer.stopPlay(true);  //true代表清除最后一帧画面
+        videoView.onDestroy();
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PullStreamActivity">
+    tools:context=".activity.PullStreamActivity">
 
     <com.tencent.rtmp.ui.TXCloudVideoView
         android:id="@+id/videoview_pull"

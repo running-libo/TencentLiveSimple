@@ -1,4 +1,4 @@
-package com.cp.tencentlivesimple;
+package com.cp.tencentlivesimple.view;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+
+import com.cp.tencentlivesimple.R;
 
 /**
  * create by libo

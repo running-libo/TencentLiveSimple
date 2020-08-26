@@ -1,4 +1,4 @@
-package com.cp.tencentlivesimple;
+package com.cp.tencentlivesimple.activity;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;

@@ -1,11 +1,15 @@
-package com.cp.tencentlivesimple;
+package com.cp.tencentlivesimple.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.cp.tencentlivesimple.view.ConfirmDialog;
+import com.cp.tencentlivesimple.R;
+import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -20,9 +24,9 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     public static final String liveUrl = "rtmp://65799.livepush.myqcloud.com/HuyaLive/huyalive?txSecret=9cb224c7d598a79cbfc76f8ab61a847d&txTime=5FDCAC29";
     private TXLivePusher livePusher;
     private TXCloudVideoView videoView;
-    private Button btnClose, btnSwitch;
+    private TXLivePushConfig pushConfig;
     private ImageView ivSwitch;
-    private TextView tvStartLive;
+    private TextView tvStartLive, tvWatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +35,21 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
 
         initView();
 
+        setPushConfig();
+
+        onOrientationChange(true);
+
         requestPermissions();
     }
 
     private void initView() {
         videoView = findViewById(R.id.videoview_push);
-        btnClose = findViewById(R.id.btn_close);
-        btnSwitch = findViewById(R.id.btn_switch);
         ivSwitch = findViewById(R.id.iv_switch);
         tvStartLive = findViewById(R.id.tv_startLive);
-        btnClose.setOnClickListener(this);
-        btnSwitch.setOnClickListener(this);
+        tvWatch = findViewById(R.id.tv_watch);
         ivSwitch.setOnClickListener(this);
         tvStartLive.setOnClickListener(this);
+        tvWatch.setOnClickListener(this);
     }
 
     /**
@@ -54,7 +60,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         requestPermissions(permissions, new PermissionListener() {
             @Override
             public void onGranted() {
-                setPushConfig();
+
                 startPreview();
             }
 
@@ -70,7 +76,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
      */
     private void setPushConfig() {
         livePusher = new TXLivePusher(this);
-        TXLivePushConfig pushConfig = new TXLivePushConfig();
+        pushConfig = new TXLivePushConfig();
         pushConfig.setTouchFocus(true);  //开启手动聚焦
         pushConfig.enableNearestIP(true);
         livePusher.setConfig(pushConfig);
@@ -81,10 +87,6 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
      */
     private void startPreview() {
         livePusher.startCameraPreview(videoView);
-//        int ret = livePusher.startPusher(liveUrl);
-//        if (ret == -5) {
-//            Log.i("minfo", "startRTMPPush: license 校验失败");
-//        }
     }
 
     /**
@@ -105,15 +107,36 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_close:
-                closeLive();
-                break;
             case R.id.iv_switch:
                 livePusher.switchCamera();
                 break;
             case R.id.tv_startLive:
                 livePusher.startPusher(liveUrl);
                 break;
+            case R.id.tv_watch:
+                startActivity(new Intent(this, PullStreamActivity.class));
+                break;
+        }
+    }
+
+    /**
+     * 设置摄像头采集方向
+     * @param isPortrait
+     *
+     * TXLivePushConfig 中的setHomeOrientation改变观众端看到的视频画面的宽高比方向
+     *
+     * TXLivePusher 中的setRenderRotation接口改变主播端的视频画面的渲染方向
+     */
+    public void onOrientationChange(boolean isPortrait) {
+        if (isPortrait) {
+            pushConfig.setHomeOrientation(TXLiveConstants.VIDEO_ANGLE_HOME_DOWN);
+            livePusher.setConfig(pushConfig);
+            livePusher.setRenderRotation(0);
+        } else {
+            pushConfig.setHomeOrientation(TXLiveConstants.VIDEO_ANGLE_HOME_RIGHT);
+            livePusher.setConfig(pushConfig);
+            // 因为采集旋转了，为了保证本地渲染是正的，则设置渲染角度为90度。 
+            livePusher.setRenderRotation(90);
         }
     }
 
