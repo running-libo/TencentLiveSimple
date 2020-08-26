@@ -8,6 +8,8 @@ import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import com.cp.tencentlivesimple.util.TimeUtil;
 import com.cp.tencentlivesimple.view.ExitConfirmDialog;
@@ -93,7 +95,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             public void onFinish() {
                 //直播开始
                 startTimerTask();
-//                livePusher.startPusher(liveUrl);  暂不推流
+                livePusher.startPusher(liveUrl);
             }
         });
     }
@@ -174,7 +176,9 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                 closeLive();
                 break;
             case R.id.ivPixel:
-                new SwitchQualityDialog(this, R.style.basedialog_style);
+                new SwitchQualityDialog(this, R.style.basedialog_style, pos -> {
+                    switchQuality(pos);
+                });
                 break;
         }
     }
@@ -197,6 +201,26 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             livePusher.setConfig(pushConfig);
             // 因为采集旋转了，为了保证本地渲染是正的，则设置渲染角度为90度。 
             livePusher.setRenderRotation(90);
+        }
+    }
+
+    /**
+     * 切换画质
+     */
+    private void switchQuality(int pos) {
+        switch (pos) {
+            case 0:
+                livePusher.setVideoQuality(TXLiveConstants.VIDEO_QUALITY_STANDARD_DEFINITION, true, false);
+                Toast.makeText(getApplicationContext(), "已切换到流畅画质", Toast.LENGTH_SHORT).show();
+                break;
+            case 1:
+                livePusher.setVideoQuality(TXLiveConstants.VIDEO_QUALITY_HIGH_DEFINITION, true, false);
+                Toast.makeText(getApplicationContext(), "已切换到高清画质", Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+                livePusher.setVideoQuality(TXLiveConstants.VIDEO_QUALITY_SUPER_DEFINITION, true, false);
+                Toast.makeText(getApplicationContext(), "已切换到超清画质", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
