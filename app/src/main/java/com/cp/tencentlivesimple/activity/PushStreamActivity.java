@@ -56,8 +56,6 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
 
         setPushConfig();
 
-        onOrientationChange(true);
-
         requestPermissions();
     }
 
@@ -134,6 +132,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         pushConfig.setTouchFocus(true);  //开启手动聚焦
         pushConfig.enableNearestIP(true);
         livePusher.setConfig(pushConfig);
+        livePusher.setRenderRotation(270);  //直播端旋转角度为270为正常角度
     }
 
     /**
@@ -180,27 +179,6 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                     switchQuality(pos);
                 });
                 break;
-        }
-    }
-
-    /**
-     * 设置摄像头采集方向
-     * @param isPortrait
-     *
-     * TXLivePushConfig 中的setHomeOrientation改变观众端看到的视频画面的宽高比方向
-     *
-     * TXLivePusher 中的setRenderRotation接口改变主播端的视频画面的渲染方向
-     */
-    public void onOrientationChange(boolean isPortrait) {
-        if (isPortrait) {
-            pushConfig.setHomeOrientation(TXLiveConstants.VIDEO_ANGLE_HOME_DOWN);
-            livePusher.setConfig(pushConfig);
-            livePusher.setRenderRotation(0);
-        } else {
-            pushConfig.setHomeOrientation(TXLiveConstants.VIDEO_ANGLE_HOME_RIGHT);
-            livePusher.setConfig(pushConfig);
-            // 因为采集旋转了，为了保证本地渲染是正的，则设置渲染角度为90度。 
-            livePusher.setRenderRotation(90);
         }
     }
 
