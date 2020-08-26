@@ -148,6 +148,23 @@
         app:layout_constraintTop_toTopOf="@id/ivClose"
         android:layout_marginRight="15dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="320dp"
+        android:textColor="@color/color_blue"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="13sp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:lineSpacingExtra="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_bghalfblack_radius8"
+        android:text="系统消息：虎牙官方倡导绿色直播，对直播内容进行24小时在线巡查。任何传播违法、违规、低俗、暴力等不良信息的行为将会封停账号。"/>
+
     <ImageView
         android:id="@+id/ivTreasure"
         android:layout_width="40dp"
