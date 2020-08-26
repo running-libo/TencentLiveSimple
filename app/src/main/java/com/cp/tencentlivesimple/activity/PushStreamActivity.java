@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +41,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     private View viewStartLive, viewDoingLive;
     private ImageView ivClose;
     private int curDuration;
+    private ScaleGestureDetector scaleGestureDetector;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -79,6 +83,8 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         tvWatch.setOnClickListener(this);
         ivClose.setOnClickListener(this);
         ivPixel.setOnClickListener(this);
+
+        setScaleEvent();
 
         tvCountDown.setListener(new CountDownTextView.OnCountDownFinishListener() {
             @Override
@@ -227,5 +233,24 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     private void startTimerTask() {
         tvDuration.setVisibility(View.VISIBLE);
         handler.sendEmptyMessage(0);
+    }
+
+    private void setScaleEvent() {
+        viewDoingLive.setOnTouchListener((v, event) -> {
+            scaleGestureDetector.onTouchEvent(event);
+            return true;
+        });
+        scaleGestureDetector = new ScaleGestureDetector(this, new MyScaleListener());
+    }
+
+    class MyScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            Log.i("minfo", "缩放比例： " + detector.getScaleFactor());
+            Log.i("minfo", "最大焦距 " + livePusher.getMaxZoom());
+
+            livePusher.setZoom((int) (detector.getScaleFactor()*5));  //设置缩放
+            return super.onScale(detector);
+        }
     }
 }
