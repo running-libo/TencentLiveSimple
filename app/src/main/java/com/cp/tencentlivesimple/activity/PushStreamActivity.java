@@ -29,6 +29,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     private TextView tvStartLive, tvWatch;
     private CountDownTextView tvCountDown;
     private View viewStartLive, viewDoingLive;
+    private ImageView ivClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +54,12 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         viewStartLive = findViewById(R.id.view_startlive);
         viewDoingLive = findViewById(R.id.view_doinglive);
         viewDoingLive.setVisibility(View.GONE);
+        ivClose = findViewById(R.id.ivClose);
 
         ivSwitch.setOnClickListener(this);
         tvStartLive.setOnClickListener(this);
         tvWatch.setOnClickListener(this);
+        ivClose.setOnClickListener(this);
 
         //直播开始
         tvCountDown.setListener(new CountDownTextView.OnCountDownFinishListener() {
@@ -136,6 +139,9 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             case R.id.tv_watch:
                 startActivity(new Intent(this, PullStreamActivity.class));
                 break;
+            case R.id.ivClose:
+                closeLive();
+                break;
         }
     }
 
@@ -162,7 +168,6 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
 
     private void closeLive() {
         new ConfirmDialog(this, R.style.basedialog_style)
-                .setTitle("是否退出直播")
                 .setOnClickListener(new ConfirmDialog.OnClickListener() {
                     @Override
                     public void onConfirm() {

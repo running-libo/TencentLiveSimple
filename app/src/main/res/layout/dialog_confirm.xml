@@ -1,91 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:background="@drawable/roundmiddle_bgwhite"
-        android:orientation="vertical">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/tv_dialog_title"
-            android:layout_width="match_parent"
-            android:layout_height="49.5dp"
-            android:layout_marginLeft="3dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="标题"
-            android:textColor="@color/color_black"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:background="@color/color_divider" />
-
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:textSize="14sp"
-            android:textColor="@color/color_black"
-            android:lineSpacingExtra="5dp"
-            android:visibility="gone"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:background="@color/color_divider" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text="提示"
+            android:textSize="17sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/color_black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:id="@+id/tv_sureadd"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="40dp"
-                android:layout_marginLeft="3dp"
-                android:clickable="true"
-                android:gravity="center"
-                android:text="确认"
-                android:textColor="@color/color_black"
-                android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定要结束直播吗？"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/color_black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            android:layout_marginTop="20dp"/>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_divider" />
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:textColor="#fba70d"
+            android:padding="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvContent"
+            android:layout_marginTop="20dp"/>
 
-            <TextView
-                android:id="@+id/tv_canceladd"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="40dp"
-                android:layout_marginRight="3dp"
-                android:clickable="true"
-                android:gravity="center"
-                android:text="取消"
-                android:textColor="@color/color_black"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-</LinearLayout>
-
+        <TextView
+            android:id="@+id/tvCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            app:layout_constraintRight_toLeftOf="@id/tvConfirm"
+            android:padding="20dp"
+            android:textColor="@color/color_black"
+            app:layout_constraintBottom_toBottomOf="@id/tvConfirm"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

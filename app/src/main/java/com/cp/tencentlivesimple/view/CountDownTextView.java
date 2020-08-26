@@ -26,13 +26,13 @@ public class CountDownTextView extends androidx.appcompat.widget.AppCompatTextVi
                 //3 2 1
                 setVisibility(View.VISIBLE);
                 setText(countDownTime + "");
-                handler.sendEmptyMessageDelayed(0, 1500);
+                handler.sendEmptyMessageDelayed(0, 1000);
                 playCountDownAnim();
                 countDownTime--;
             } else if (countDownTime == 0) {
                 // 0
                 setText("GO");
-                handler.sendEmptyMessageDelayed(0, 1500);
+                handler.sendEmptyMessageDelayed(0, 1000);
                 playCountDownAnim();
                 countDownTime--;
             } else {

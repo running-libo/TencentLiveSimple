@@ -25,10 +25,10 @@ public class ConfirmDialog extends Dialog {
         super(context, themeResId);
         setContentView(R.layout.dialog_confirm);
 
-        tvDialogTitle = findViewById(R.id.tv_dialog_title);
-        tvSureadd = findViewById(R.id.tv_sureadd);
-        tvCanceladd = findViewById(R.id.tv_canceladd);
-        tvContent = findViewById(R.id.tv_content);
+        tvDialogTitle = findViewById(R.id.tvTitle);
+        tvSureadd = findViewById(R.id.tvConfirm);
+        tvCanceladd = findViewById(R.id.tvCancel);
+        tvContent = findViewById(R.id.tvContent);
 
         initSize();
 
