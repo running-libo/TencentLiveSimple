@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
+import android.widget.TextView;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -22,6 +22,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
     private TXCloudVideoView videoView;
     private Button btnClose, btnSwitch;
     private ImageView ivSwitch;
+    private TextView tvStartLive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,11 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         btnClose = findViewById(R.id.btn_close);
         btnSwitch = findViewById(R.id.btn_switch);
         ivSwitch = findViewById(R.id.iv_switch);
+        tvStartLive = findViewById(R.id.tv_startLive);
         btnClose.setOnClickListener(this);
         btnSwitch.setOnClickListener(this);
         ivSwitch.setOnClickListener(this);
+        tvStartLive.setOnClickListener(this);
     }
 
     /**
@@ -107,6 +110,9 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                 break;
             case R.id.iv_switch:
                 livePusher.switchCamera();
+                break;
+            case R.id.tv_startLive:
+                livePusher.startPusher(liveUrl);
                 break;
         }
     }
