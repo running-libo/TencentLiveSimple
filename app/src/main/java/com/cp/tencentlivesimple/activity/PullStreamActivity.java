@@ -11,16 +11,22 @@ import com.androidkun.xtablayout.XTabLayout;
 import com.cp.tencentlivesimple.R;
 import com.cp.tencentlivesimple.livingroom.IMLVBLiveRoomListener;
 import com.cp.tencentlivesimple.livingroom.MLVBLiveRoom;
+import com.cp.tencentlivesimple.roomutil.commondef.AnchorInfo;
+import com.cp.tencentlivesimple.roomutil.commondef.AudienceInfo;
+import com.tencent.rtmp.ITXLivePlayListener;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
+
+import static com.tencent.rtmp.TXLiveConstants.PLAY_ERR_NET_DISCONNECT;
+import static com.tencent.rtmp.TXLiveConstants.PLAY_EVT_PLAY_END;
 
 /**
  * create by libo
  * create on 2019-10-29
  * description 拉流页
  */
-public class PullStreamActivity extends BasePermissionActivity {
+public class PullStreamActivity extends BasePermissionActivity implements IMLVBLiveRoomListener  {
     private TXLivePlayer livePlayer;
     private TXCloudVideoView videoView;
     private String roomId;
@@ -61,6 +67,8 @@ public class PullStreamActivity extends BasePermissionActivity {
         tvSend.setOnClickListener(v -> {
             sendMessage(etContent.getText().toString());
         });
+
+        observePlayerEvent();
     }
 
     private void enterRoom(String roomId) {
@@ -101,6 +109,30 @@ public class PullStreamActivity extends BasePermissionActivity {
     }
 
     /**
+     * 设置视频播放状态监听
+     */
+    private void observePlayerEvent() {
+        livePlayer.setPlayListener(new ITXLivePlayListener() {
+            @Override
+            public void onPlayEvent(int event, Bundle bundle) {
+                switch (event) {
+                    case PLAY_ERR_NET_DISCONNECT:
+                    case PLAY_EVT_PLAY_END:
+                        Toast.makeText(PullStreamActivity.this, "视频播放已结束", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNetStatus(Bundle bundle) {
+
+            }
+        });
+
+
+    }
+
+    /**
      * 退出房间
      */
     private void exitRoom() {
@@ -133,5 +165,75 @@ public class PullStreamActivity extends BasePermissionActivity {
                 Toast.makeText(getApplicationContext(), "发送消息成功", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onError(int errCode, String errMsg, Bundle extraInfo) {
+
+    }
+
+    @Override
+    public void onWarning(int warningCode, String warningMsg, Bundle extraInfo) {
+
+    }
+
+    @Override
+    public void onDebugLog(String log) {
+
+    }
+
+    @Override
+    public void onRoomDestroy(String roomID) {
+        Toast.makeText(getApplicationContext(), "房间已被销毁", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAnchorEnter(AnchorInfo anchorInfo) {
+        Toast.makeText(getApplicationContext(), "主播加入", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAnchorExit(AnchorInfo anchorInfo) {
+        Toast.makeText(getApplicationContext(), "主播退出", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAudienceEnter(AudienceInfo audienceInfo) {
+        Toast.makeText(getApplicationContext(), "观众加入", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAudienceExit(AudienceInfo audienceInfo) {
+        Toast.makeText(getApplicationContext(), "观众退出", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestJoinAnchor(AnchorInfo anchorInfo, String reason) {
+
+    }
+
+    @Override
+    public void onKickoutJoinAnchor() {
+
+    }
+
+    @Override
+    public void onRequestRoomPK(AnchorInfo anchorInfo) {
+
+    }
+
+    @Override
+    public void onQuitRoomPK(AnchorInfo anchorInfo) {
+
+    }
+
+    @Override
+    public void onRecvRoomTextMsg(String roomID, String userID, String userName, String userAvatar, String message) {
+        Toast.makeText(getApplicationContext(), "收到消息 " + userName + ":" + message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRecvRoomCustomMsg(String roomID, String userID, String userName, String userAvatar, String cmd, String message) {
+
     }
 }

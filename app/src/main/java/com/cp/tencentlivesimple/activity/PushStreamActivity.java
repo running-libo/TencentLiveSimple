@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import com.cp.tencentlivesimple.livingroom.GenerateTestUserSig;
 import com.cp.tencentlivesimple.livingroom.IMLVBLiveRoomListener;
 import com.cp.tencentlivesimple.livingroom.MLVBLiveRoom;
+import com.cp.tencentlivesimple.roomutil.commondef.AnchorInfo;
 import com.cp.tencentlivesimple.roomutil.commondef.AudienceInfo;
 import com.cp.tencentlivesimple.roomutil.commondef.LoginInfo;
 import com.cp.tencentlivesimple.util.TimeUtil;
@@ -38,7 +39,7 @@ import java.util.List;
  * create on 2020-7-29
  * description 推流页
  */
-public class PushStreamActivity extends BasePermissionActivity implements View.OnClickListener {
+public class PushStreamActivity extends BasePermissionActivity implements View.OnClickListener, IMLVBLiveRoomListener   {
     public static final String liveUrl = "rtmp://65799.livepush.myqcloud.com/HuyaLive/huyalive?txSecret=9cb224c7d598a79cbfc76f8ab61a847d&txTime=5FDCAC29";
     private TXLivePusher livePusher;
     private TXCloudVideoView videoView;
@@ -253,6 +254,76 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             return true;
         });
         scaleGestureDetector = new ScaleGestureDetector(this, new MyScaleListener());
+    }
+
+    @Override
+    public void onError(int errCode, String errMsg, Bundle extraInfo) {
+
+    }
+
+    @Override
+    public void onWarning(int warningCode, String warningMsg, Bundle extraInfo) {
+
+    }
+
+    @Override
+    public void onDebugLog(String log) {
+
+    }
+
+    @Override
+    public void onRoomDestroy(String roomID) {
+
+    }
+
+    @Override
+    public void onAnchorEnter(AnchorInfo anchorInfo) {
+
+    }
+
+    @Override
+    public void onAnchorExit(AnchorInfo anchorInfo) {
+
+    }
+
+    @Override
+    public void onAudienceEnter(AudienceInfo audienceInfo) {
+        Toast.makeText(getApplicationContext(), "观众加入", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAudienceExit(AudienceInfo audienceInfo) {
+        Toast.makeText(getApplicationContext(), "观众退出", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestJoinAnchor(AnchorInfo anchorInfo, String reason) {
+
+    }
+
+    @Override
+    public void onKickoutJoinAnchor() {
+
+    }
+
+    @Override
+    public void onRequestRoomPK(AnchorInfo anchorInfo) {
+
+    }
+
+    @Override
+    public void onQuitRoomPK(AnchorInfo anchorInfo) {
+
+    }
+
+    @Override
+    public void onRecvRoomTextMsg(String roomID, String userID, String userName, String userAvatar, String message) {
+        Toast.makeText(getApplicationContext(), "收到消息" + userName + ":" + message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRecvRoomCustomMsg(String roomID, String userID, String userName, String userAvatar, String cmd, String message) {
+
     }
 
     class MyScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
