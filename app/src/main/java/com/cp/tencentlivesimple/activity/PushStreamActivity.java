@@ -14,6 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
+import com.cp.tencentlivesimple.livingroom.GenerateTestUserSig;
+import com.cp.tencentlivesimple.livingroom.IMLVBLiveRoomListener;
+import com.cp.tencentlivesimple.livingroom.MLVBLiveRoom;
+import com.cp.tencentlivesimple.livingroom.MLVBLiveRoomImpl;
+import com.cp.tencentlivesimple.roomutil.commondef.LoginInfo;
 import com.cp.tencentlivesimple.util.TimeUtil;
 import com.cp.tencentlivesimple.view.ExitConfirmDialog;
 import com.cp.tencentlivesimple.R;
@@ -99,6 +105,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             public void onFinish() {
                 //直播开始
                 startTimerTask();
+                loginRoom();
                 livePusher.startPusher(liveUrl);
             }
         });
@@ -253,4 +260,22 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             return super.onScale(detector);
         }
     }
+
+    private void loginRoom() {
+        LoginInfo loginInfo = new LoginInfo(1400279167, "123456",
+                "libo", "https://upload-images.jianshu.io/upload_images/8669504-e759203a15a1acee.jpeg?imageMogr2/auto-orient/strip|imageView2/2/w/1080/format/webp", GenerateTestUserSig.genTestUserSig("123456"));
+        MLVBLiveRoom.sharedInstance(getApplicationContext()).login(loginInfo, new IMLVBLiveRoomListener.LoginCallback() {
+            @Override
+            public void onError(int errCode, String errInfo) {
+                Toast.makeText(getApplicationContext(), "登录失败,errCode= " + errCode, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
+            }
+        });
+//        MLVBLiveRoom.sharedInstance(getApplicationContext()).setListener();
+    }
+
 }
