@@ -13,7 +13,7 @@ public class LoginInfo implements Parcelable {
     /**
      * 直播的appID
      */
-    public long   sdkAppID;
+    public long sdkAppID;
 
     /**
      * 自己的用户ID

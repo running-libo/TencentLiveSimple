@@ -19,7 +19,9 @@ import com.cp.tencentlivesimple.livingroom.GenerateTestUserSig;
 import com.cp.tencentlivesimple.livingroom.IMLVBLiveRoomListener;
 import com.cp.tencentlivesimple.livingroom.MLVBLiveRoom;
 import com.cp.tencentlivesimple.livingroom.MLVBLiveRoomImpl;
+import com.cp.tencentlivesimple.roomutil.commondef.AudienceInfo;
 import com.cp.tencentlivesimple.roomutil.commondef.LoginInfo;
+import com.cp.tencentlivesimple.roomutil.commondef.RoomInfo;
 import com.cp.tencentlivesimple.util.TimeUtil;
 import com.cp.tencentlivesimple.view.ExitConfirmDialog;
 import com.cp.tencentlivesimple.R;
@@ -29,6 +31,8 @@ import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,6 +60,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             handler.sendEmptyMessageDelayed(0, 1000);
         }
     };
+    private String userId = "123456789";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,9 +266,12 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         }
     }
 
+    /**
+     * 登录房间
+     */
     private void loginRoom() {
-        LoginInfo loginInfo = new LoginInfo(1400279167, "123456",
-                "libo", "https://upload-images.jianshu.io/upload_images/8669504-e759203a15a1acee.jpeg?imageMogr2/auto-orient/strip|imageView2/2/w/1080/format/webp", GenerateTestUserSig.genTestUserSig("123456"));
+        LoginInfo loginInfo = new LoginInfo(1400279167, userId,
+                "libo", "https://upload-images.jianshu.io/upload_images/8669504-e759203a15a1acee.jpeg?imageMogr2/auto-orient/strip|imageView2/2/w/1080/format/webp", GenerateTestUserSig.genTestUserSig(userId));
         MLVBLiveRoom.sharedInstance(getApplicationContext()).login(loginInfo, new IMLVBLiveRoomListener.LoginCallback() {
             @Override
             public void onError(int errCode, String errInfo) {
@@ -273,9 +281,64 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             @Override
             public void onSuccess() {
                 Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
+//                getRoomList();
+//                getAudienceLists();
+                createRoom();
             }
         });
 //        MLVBLiveRoom.sharedInstance(getApplicationContext()).setListener();
+    }
+
+    /**
+     * 获取房间列表  index表第几页
+     */
+    private void getRoomList() {
+        MLVBLiveRoom.sharedInstance(getApplicationContext()).getRoomList(0, 10, new IMLVBLiveRoomListener.GetRoomListCallback() {
+            @Override
+            public void onError(int errCode, String errInfo) {
+                Toast.makeText(getApplicationContext(), "获取房间失败,errCode=" + errCode, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(ArrayList<RoomInfo> roomInfoList) {
+                Toast.makeText(getApplicationContext(), "获取房间成功", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 获取房间观众
+     */
+    private void getAudienceLists() {
+        MLVBLiveRoom.sharedInstance(getApplicationContext()).getAudienceList(new IMLVBLiveRoomListener.GetAudienceListCallback() {
+            @Override
+            public void onError(int errCode, String errInfo) {
+                Toast.makeText(getApplicationContext(), "获取观众失败,errCode=" + errCode, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(ArrayList<AudienceInfo> audienceInfoList) {
+                Toast.makeText(getApplicationContext(), "获取观众成功", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 创建房间
+     */
+    private void createRoom() {
+        MLVBLiveRoom.sharedInstance(getApplicationContext()).startLocalPreview(true, videoView);
+        MLVBLiveRoom.sharedInstance(getApplicationContext()).createRoom(userId, "房间信息", new IMLVBLiveRoomListener.CreateRoomCallback() {
+            @Override
+            public void onError(int errCode, String errInfo) {
+                Toast.makeText(getApplicationContext(), "创建房间失败,errCode=" + errCode + "  " + errInfo, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(String RoomID) {
+                Toast.makeText(getApplicationContext(), "创建房间成功, RoomID=" + RoomID, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
