@@ -23,17 +23,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.LiveFinishActivity"></activity>
-        <activity android:name=".activity.PullStreamActivity" />
-        <activity
-            android:name=".activity.PushStreamActivity"
-            android:screenOrientation="landscape">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.LiveFinishActivity" />
+        <activity android:name=".activity.PullStreamActivity" />
+        <activity
+            android:name=".activity.PushStreamActivity"
+            android:screenOrientation="landscape">
+
         </activity>
     </application>
 

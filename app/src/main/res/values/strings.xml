@@ -36,7 +36,7 @@
     <string name="mlvb_parameter_error_hint">参数错误，请检查 UserID， userSig 是否为空！</string>
     <string name="mlvb_im_login_fail">IM登录失败</string>
     <string name="mlvb_im_init_fail">IM初始化失败</string>
-    <string name="mlvb_im_init_fail_msg" formatted="false" >[IM] 初始化失败[%s:%d]</string>
+    <string name="mlvb_im_init_fail_msg" formatted="false">[IM] 初始化失败[%s:%d]</string>
     <string name="mlvb_im_no_init">IM没有初始化</string>
     <string name="mlvb_im_no_init_hint">[joinGroup] IM 没有初始化</string>
     <string name="mlvb_join_group_fail" formatted="false">加入群 {%s} 失败:%s(%d)</string>
@@ -85,7 +85,7 @@
     <string name="mlvb_fetch_login_info_fail">获取登录信息失败</string>
     <string name="mlvb_fetch_login_info_fail_hint" formatted="false">[Activity]获取登录信息失败：{%s}</string>
     <string name="mlvb_group_disband" formatted="false">群 {%s} 已经解散了</string>
-    <string name="mlvb_group_quit_fail" formatted="false" >退出群 {%s} 失败： %s(%d)</string>
+    <string name="mlvb_group_quit_fail" formatted="false">退出群 {%s} 失败： %s(%d)</string>
     <string name="mlvb_group_quit_success" formatted="false">退出群 {%s} 成功</string>
 
     <string name="mlvb_group_create_success" formatted="false">创建群 {%s} 成功</string>
@@ -156,6 +156,6 @@
     <string name="mlvb_getRoomList_fail" formatted="false">[LiveRoom] getRoomList 失败[%s]</string>
     <string name="mlvb_getRoomList_fail_http_no_init">[LiveRoom] getRoomList失败[Http 未初始化，请确保已经login]</string>
     <string name="mlvb_login_success" formatted="false">[LiveRoom] 登录成功, userID {%s}, userName {%s}, sdkAppID {%d}</string>
-    <string name="mlvb_RoomService_login_success" formatted="false" >[LiveRoom] RoomService登录失败[%s:%d]</string>
+    <string name="mlvb_RoomService_login_success" formatted="false">[LiveRoom] RoomService登录失败[%s:%d]</string>
 
 </resources>
