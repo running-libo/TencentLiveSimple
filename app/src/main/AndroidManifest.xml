@@ -25,6 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.RoomListActivity"></activity>
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,9 +37,7 @@
         <activity android:name=".activity.PullStreamActivity" />
         <activity
             android:name=".activity.PushStreamActivity"
-            android:screenOrientation="landscape">
-
-        </activity>
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

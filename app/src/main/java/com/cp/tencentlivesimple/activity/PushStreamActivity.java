@@ -273,7 +273,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
      */
     private void loginRoom() {
         LoginInfo loginInfo = new LoginInfo(GenerateTestUserSig.SDKAPPID, userId,
-                "libo", "https://upload-images.jianshu.io/upload_images/8669504-e759203a15a1acee.jpeg?imageMogr2/auto-orient/strip|imageView2/2/w/1080/format/webp", GenerateTestUserSig.genTestUserSig(userId));
+                "libo", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1598533687014&di=62d1d19b70073344e6f5010e5dbfb5c6&imgtype=0&src=http%3A%2F%2Fi1.17173cdn.com%2F2fhnvk%2FYWxqaGBf%2Fcms3%2FKhIMufbldqvFqra.png", GenerateTestUserSig.genTestUserSig(userId));
         MLVBLiveRoom.sharedInstance(getApplicationContext()).login(loginInfo, new IMLVBLiveRoomListener.LoginCallback() {
             @Override
             public void onError(int errCode, String errInfo) {

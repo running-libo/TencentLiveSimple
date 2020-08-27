@@ -3,7 +3,13 @@ package com.cp.tencentlivesimple.activity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.cp.tencentlivesimple.R;
+import com.cp.tencentlivesimple.adapter.RoomAdapter;
 import com.cp.tencentlivesimple.livingroom.GenerateTestUserSig;
 import com.cp.tencentlivesimple.livingroom.IMLVBLiveRoomListener;
 import com.cp.tencentlivesimple.livingroom.MLVBLiveRoom;
@@ -12,7 +18,6 @@ import com.cp.tencentlivesimple.roomutil.commondef.RoomInfo;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
-import java.util.ArrayList;
 
 /**
  * create by libo
@@ -22,64 +27,24 @@ import java.util.ArrayList;
 public class PullStreamActivity extends BasePermissionActivity {
     private TXLivePlayer livePlayer;
     private TXCloudVideoView videoView;
-    private String userId = "1234567890";
+    private String roomId;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pull_stream);
 
+        roomId = getIntent().getStringExtra("roomId");
+        url = getIntent().getStringExtra("url");
         init();
-        loginRoom();
     }
 
     private void init() {
         livePlayer = new TXLivePlayer(this);
         videoView = findViewById(R.id.videoview_pull);
         livePlayer.setPlayerView(videoView);
-//        startLivePlay();
-    }
-
-    /**
-     * 登录房间
-     */
-    private void loginRoom() {
-        LoginInfo loginInfo = new LoginInfo(GenerateTestUserSig.SDKAPPID, userId,
-                "libobo", "https://upload-images.jianshu.io/upload_images/8669504-e759203a15a1acee.jpeg?imageMogr2/auto-orient/strip|imageView2/2/w/1080/format/webp", GenerateTestUserSig.genTestUserSig(userId));
-        MLVBLiveRoom.sharedInstance(getApplicationContext()).login(loginInfo, new IMLVBLiveRoomListener.LoginCallback() {
-            @Override
-            public void onError(int errCode, String errInfo) {
-                Toast.makeText(getApplicationContext(), "登录失败,errCode= " + errCode, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
-                getRoomList();
-//                getAudienceLists();
-            }
-        });
-    }
-
-    /**
-     * 获取房间列表  index表第几页
-     */
-    private void getRoomList() {
-        MLVBLiveRoom.sharedInstance(getApplicationContext()).getRoomList(0, 10, new IMLVBLiveRoomListener.GetRoomListCallback() {
-            @Override
-            public void onError(int errCode, String errInfo) {
-                Toast.makeText(getApplicationContext(), "获取房间失败,errCode=" + errCode + " " + errInfo, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess(ArrayList<RoomInfo> roomInfoList) {
-                Toast.makeText(getApplicationContext(), "获取房间成功", Toast.LENGTH_SHORT).show();
-                enterRoom(roomInfoList.get(0).roomID);
-                if (roomInfoList.size() >0) {
-                    startLivePlay(roomInfoList.get(0).mixedPlayURL);
-                }
-            }
-        });
+        enterRoom(roomId);
     }
 
     private void enterRoom(String roomId) {
@@ -92,6 +57,7 @@ public class PullStreamActivity extends BasePermissionActivity {
             @Override
             public void onSuccess() {
                 Toast.makeText(getApplicationContext(), "进入房间成功", Toast.LENGTH_SHORT).show();
+                startLivePlay(url);
             }
         });
     }

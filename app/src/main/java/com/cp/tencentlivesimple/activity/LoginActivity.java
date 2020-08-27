@@ -17,6 +17,6 @@ public class LoginActivity extends AppCompatActivity {
         Button btnAudience = findViewById(R.id.btnAudience);
         btnAnchor.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, PushStreamActivity.class)));
 
-        btnAudience.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, PullStreamActivity.class)));
+        btnAudience.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, RoomListActivity.class)));
     }
 }
