@@ -74,10 +74,6 @@ public class RoomListActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "获取房间成功", Toast.LENGTH_SHORT).show();
                 rooms.addAll(roomInfoList);
                 roomAdapter.notifyDataSetChanged();
-//                enterRoom(roomInfoList.get(0).roomID);
-//                if (roomInfoList.size() >0) {
-//                    startLivePlay(roomInfoList.get(0).mixedPlayURL);
-//                }
             }
         });
     }
