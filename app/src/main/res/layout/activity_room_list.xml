@@ -11,4 +11,14 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/btnStartLive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开播"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="20dp"
+        android:onClick="startLive"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

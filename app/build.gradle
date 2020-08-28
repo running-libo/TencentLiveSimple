@@ -54,14 +54,15 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.3.1'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 
     implementation 'com.androidkun:XTabLayout:1.1.4'
 
     implementation "com.tencent.liteav:LiteAVSDK_TRTC:latest.release"  //推拉流依赖
     implementation 'com.tencent.imsdk:imsdk:latest.release'  //IM依赖
-
-    implementation(name: 'LiteAVSDK_Smart_7.6.9376', ext: 'aar')
-    implementation(name: 'imsdk-4.9.1', ext: 'aar')
+//
+//    implementation(name: 'LiteAVSDK_Smart_7.6.9376', ext: 'aar')
+//    implementation(name: 'imsdk-4.9.1', ext: 'aar')
 //    implementation(name: 'tuikit-4.9.1', ext: 'aar')
 }

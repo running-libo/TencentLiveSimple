@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.androidkun.xtablayout.XTabLayout;
 import com.cp.tencentlivesimple.R;
 import com.cp.tencentlivesimple.livingroom.IMLVBLiveRoomListener;
-import com.cp.tencentlivesimple.livingroom.MLVBLiveRoom;
+//import com.cp.tencentlivesimple.livingroom.MLVBLiveRoom;
 import com.cp.tencentlivesimple.roomutil.commondef.AnchorInfo;
 import com.cp.tencentlivesimple.roomutil.commondef.AudienceInfo;
 import com.tencent.rtmp.ITXLivePlayListener;
@@ -75,18 +75,18 @@ public class PullStreamActivity extends BasePermissionActivity implements IMLVBL
     }
 
     private void enterRoom(String roomId) {
-        MLVBLiveRoom.sharedInstance(getApplicationContext()).enterRoom(roomId, videoView, new IMLVBLiveRoomListener.EnterRoomCallback() {
-            @Override
-            public void onError(int errCode, String errInfo) {
-                Toast.makeText(getApplicationContext(), "进入房间失败 errCode=" + errCode + "  " + errInfo, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "进入房间成功", Toast.LENGTH_SHORT).show();
-                startLivePlay(url);
-            }
-        });
+//        MLVBLiveRoom.sharedInstance(getApplicationContext()).enterRoom(roomId, videoView, new IMLVBLiveRoomListener.EnterRoomCallback() {
+//            @Override
+//            public void onError(int errCode, String errInfo) {
+//                Toast.makeText(getApplicationContext(), "进入房间失败 errCode=" + errCode + "  " + errInfo, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onSuccess() {
+//                Toast.makeText(getApplicationContext(), "进入房间成功", Toast.LENGTH_SHORT).show();
+//                startLivePlay(url);
+//            }
+//        });
     }
 
     /**
@@ -135,34 +135,34 @@ public class PullStreamActivity extends BasePermissionActivity implements IMLVBL
             }
         });
 
-        MLVBLiveRoom.sharedInstance(getApplicationContext()).getCustomInfo(new GetCustomInfoCallback() {
-            @Override
-            public void onError(int errCode, String errInfo) {
-
-            }
-
-            @Override
-            public void onGetCustomInfo(Map<String, Object> customInfo) {
-                Toast.makeText(getApplicationContext(), "收到消息 " + customInfo.get(""), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        MLVBLiveRoom.sharedInstance(getApplicationContext()).getCustomInfo(new GetCustomInfoCallback() {
+//            @Override
+//            public void onError(int errCode, String errInfo) {
+//
+//            }
+//
+//            @Override
+//            public void onGetCustomInfo(Map<String, Object> customInfo) {
+//                Toast.makeText(getApplicationContext(), "收到消息 " + customInfo.get(""), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     /**
      * 退出房间
      */
     private void exitRoom() {
-        MLVBLiveRoom.sharedInstance(getApplicationContext()).exitRoom(new IMLVBLiveRoomListener.ExitRoomCallback() {
-            @Override
-            public void onError(int errCode, String errInfo) {
-                Toast.makeText(getApplicationContext(), "退出房间失败", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "退出房间成功", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        MLVBLiveRoom.sharedInstance(getApplicationContext()).exitRoom(new IMLVBLiveRoomListener.ExitRoomCallback() {
+//            @Override
+//            public void onError(int errCode, String errInfo) {
+//                Toast.makeText(getApplicationContext(), "退出房间失败", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onSuccess() {
+//                Toast.makeText(getApplicationContext(), "退出房间成功", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void sendMessage(String message) {
@@ -170,17 +170,17 @@ public class PullStreamActivity extends BasePermissionActivity implements IMLVBL
             return;
         }
 
-        MLVBLiveRoom.sharedInstance(getApplicationContext()).sendRoomTextMsg(message, new IMLVBLiveRoomListener.SendRoomTextMsgCallback() {
-            @Override
-            public void onError(int errCode, String errInfo) {
-                Toast.makeText(getApplicationContext(), "发送消息失败", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "发送消息成功", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        MLVBLiveRoom.sharedInstance(getApplicationContext()).sendRoomTextMsg(message, new IMLVBLiveRoomListener.SendRoomTextMsgCallback() {
+//            @Override
+//            public void onError(int errCode, String errInfo) {
+//                Toast.makeText(getApplicationContext(), "发送消息失败", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onSuccess() {
+//                Toast.makeText(getApplicationContext(), "发送消息成功", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override
