@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class UserModel implements Serializable {
     public String phone;
     public static String userId = "1234567";
-    public String userSig;
-    public String userName;
-    public String userAvatar;
+    public static String userSig;
+    public static String userName;
+    public static String userAvatar;
 
     @java.lang.Override
     public java.lang.String toString() {

@@ -5,50 +5,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
-import com.cp.tencentlivesimple.livingroom.GenerateTestUserSig;
-import com.cp.tencentlivesimple.livingroom.IMLVBLiveRoomListener;
-//import com.cp.tencentlivesimple.livingroom.MLVBLiveRoom;
 import com.cp.tencentlivesimple.login.model.RoomManager;
 import com.cp.tencentlivesimple.login.model.TCConstants;
 import com.cp.tencentlivesimple.login.model.UserModel;
 import com.cp.tencentlivesimple.model.TRTCLiveRoom;
-import com.cp.tencentlivesimple.model.TRTCLiveRoomCallback;
 import com.cp.tencentlivesimple.model.TRTCLiveRoomDef;
 import com.cp.tencentlivesimple.model.TRTCLiveRoomDelegate;
-import com.cp.tencentlivesimple.roomutil.commondef.AnchorInfo;
-import com.cp.tencentlivesimple.roomutil.commondef.AudienceInfo;
-import com.cp.tencentlivesimple.roomutil.commondef.LoginInfo;
 import com.cp.tencentlivesimple.util.TimeUtil;
 import com.cp.tencentlivesimple.view.ExitConfirmDialog;
 import com.cp.tencentlivesimple.R;
 import com.cp.tencentlivesimple.view.CountDownTextView;
 import com.cp.tencentlivesimple.view.SwitchQualityDialog;
-import com.tencent.rtmp.ITXLivePlayListener;
-import com.tencent.rtmp.ITXLivePushListener;
-import com.tencent.rtmp.TXLiveConstants;
-//import com.tencent.rtmp.TXLivePushConfig;
-//import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.tencent.trtc.TRTCCloudDef;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.tencent.rtmp.TXLiveConstants.PLAY_ERR_NET_DISCONNECT;
-import static com.tencent.rtmp.TXLiveConstants.PLAY_EVT_GET_MESSAGE;
-import static com.tencent.rtmp.TXLiveConstants.PLAY_EVT_PLAY_END;
 
 /**
  * create by libo
@@ -56,7 +32,7 @@ import static com.tencent.rtmp.TXLiveConstants.PLAY_EVT_PLAY_END;
  * description 推流页
  */
 public class PushStreamActivity extends BasePermissionActivity implements View.OnClickListener, TRTCLiveRoomDelegate {
-    public static final String liveUrl = "rtmp://65799.livepush.myqcloud.com/HuyaLive/huyalive?txSecret=9cb224c7d598a79cbfc76f8ab61a847d&txTime=5FDCAC29";
+//    public static final String liveUrl = "rtmp://65799.livepush.myqcloud.com/HuyaLive/huyalive?txSecret=9cb224c7d598a79cbfc76f8ab61a847d&txTime=5FDCAC29";
     private TXCloudVideoView videoView;
     private ImageView ivSwitch, ivSwitch2, ivPixel;
     private TextView tvStartLive, tvWatch, tvDuration;
@@ -73,7 +49,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             handler.sendEmptyMessageDelayed(0, 1000);
         }
     };
-    private boolean mShowLog;               // 表示是否显示Log面板
+    private boolean mShowLog; // 表示是否显示Log面板
 
     /** 核心组件liveRoom */
     protected TRTCLiveRoom mLiveRoom;
@@ -133,7 +109,6 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                 //直播开始
                 startTimerTask();
                 startPush();
-//                livePusher.startPusher(liveUrl);
             }
         });
     }
@@ -148,7 +123,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             public void onGranted() {
                 startPreview();
 
-                startCreateRoom();
+                createRoom();
             }
 
             @Override
@@ -180,10 +155,6 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         mLiveRoom.stopCameraPreview();
         mLiveRoom.stopPublish((code, msg) -> Toast.makeText(PushStreamActivity.this, "退出推流完成", Toast.LENGTH_SHORT).show());
         exitRoom();
-        //        livePusher.stopPusher();
-//        livePusher.stopCameraPreview(true);
-//        handler.removeCallbacksAndMessages(null);
-//        getAudienceHandler.removeCallbacksAndMessages(null);
     }
 
     @Override
@@ -373,39 +344,6 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         }
     }
 
-    public void startCreateRoom() {
-        if (mIsCreatingRoom) {
-            return;
-        }
-//        String roomName = mEditLiveRoomName.getText().toString().trim();
-//        if (TextUtils.isEmpty(roomName)) {
-//            ToastUtils.showLong("房间名不能为空");
-//            return;
-//        }
-//        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//        imm.hideSoftInputFromWindow(mEditLiveRoomName.getWindowToken(), 0);
-//        mRoomName = roomName;
-
-//        enterRoom();
-        RoomManager.getInstance().createRoom(roomId, TCConstants.TYPE_LIVE_ROOM, new RoomManager.ActionCallback() {
-            @Override
-            public void onSuccess() {
-                createRoom();
-            }
-
-            @Override
-            public void onFailed(int code, String msg) {
-                Toast.makeText(getApplicationContext(), "创建房间步骤1失败" + msg, Toast.LENGTH_SHORT).show();
-//                if (code == ERROR_ROOM_ID_EXIT) {
-//                    onSuccess();
-//                } else {
-//                    mIsCreatingRoom = false;
-//                    ToastUtils.showLong("创建房间失败[" + code + "]:" + msg);
-//                }
-            }
-        });
-    }
-
     public static final int ERROR_ROOM_ID_EXIT = -1301;
 
     public void createRoom() {
@@ -421,6 +359,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                 if (code == ERROR_ROOM_ID_EXIT) {
                     onSuccess();
                 } else {
+                    Toast.makeText(getApplicationContext(), "创建房间步骤1失败" + msg, Toast.LENGTH_SHORT).show();
                     mIsCreatingRoom = false;
                 }
             }
@@ -442,7 +381,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                 Toast.makeText(getApplicationContext(), "创建房间成功", Toast.LENGTH_SHORT).show();
                 //创建房间成功，开始推流
             } else {
-//                Toast.makeText(getApplicationContext(), "创建房间步骤2失败  " + msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "创建房间步骤2失败  " + msg, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -480,7 +419,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
      */
     private void startPush() {
         mLiveRoom.setAudioQuality(TRTCCloudDef.TRTC_AUDIO_QUALITY_DEFAULT);  //设置默认画质
-        mLiveRoom.startPublish(liveUrl, (code, msg) -> {
+        mLiveRoom.startPublish(UserModel.userId + "_stream" , (code, msg) -> {
             if (code == 0) {
                 Toast.makeText(PushStreamActivity.this, "直播已开始", Toast.LENGTH_SHORT).show();
             } else {

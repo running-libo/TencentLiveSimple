@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.cp.tencentlivesimple.R;
 import com.cp.tencentlivesimple.activity.PullStreamActivity;
-import com.cp.tencentlivesimple.roomutil.commondef.RoomInfo;
+import com.cp.tencentlivesimple.activity.RoomListActivity;
+
 import java.util.List;
 
 /**
@@ -22,22 +23,22 @@ import java.util.List;
  * create on 2020/8/27
  * description
  */
-public class RoomAdapter extends BaseRvAdapter<RoomInfo, RecyclerView.ViewHolder> {
+public class RoomAdapter extends BaseRvAdapter<RoomListActivity.RoomInfo, RecyclerView.ViewHolder> {
 
-    public RoomAdapter(Context context, List<RoomInfo> datas) {
+    public RoomAdapter(Context context, List<RoomListActivity.RoomInfo> datas) {
         super(context, datas);
     }
 
     @Override
-    protected void onBindData(RecyclerView.ViewHolder holder, RoomInfo data, int position) {
-        Glide.with(context).load(data.pushers.get(0).userAvatar).into(((RoomViewHolder)holder).ivCover);
-        ((RoomViewHolder)holder).tvUserName.setText(data.pushers.get(0).userName);
-        ((RoomViewHolder)holder).tvRoomName.setText(data.roomInfo);
+    protected void onBindData(RecyclerView.ViewHolder holder, RoomListActivity.RoomInfo data, int position) {
+        Glide.with(context).load(data.coverUrl).into(((RoomViewHolder)holder).ivCover);
+        ((RoomViewHolder)holder).tvUserName.setText(data.anchorName);
+        ((RoomViewHolder)holder).tvRoomName.setText(data.roomName);
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, PullStreamActivity.class);
-            intent.putExtra("roomId", data.roomID);
-            intent.putExtra("url", data.mixedPlayURL);
+            intent.putExtra("roomId", data.roomId);
+            intent.putExtra("url", data.playUrl);
             context.startActivity(intent);
         });
     }

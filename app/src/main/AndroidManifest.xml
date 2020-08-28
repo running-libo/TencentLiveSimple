@@ -27,6 +27,7 @@
 
     <!-- <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:name=".app.MyApp"
@@ -50,6 +51,11 @@
         <activity
             android:name=".activity.PushStreamActivity"
             android:screenOrientation="landscape"></activity>
+
+        <service
+            android:name=".livingroom.CallService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>

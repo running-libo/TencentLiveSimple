@@ -3,7 +3,10 @@ package com.cp.tencentlivesimple.login;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cp.tencentlivesimple.R;
@@ -12,6 +15,7 @@ import com.cp.tencentlivesimple.login.model.ProfileManager;
 import com.cp.tencentlivesimple.login.model.UserModel;
 
 public class LoginActivity extends AppCompatActivity {
+    private EditText etLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +24,15 @@ public class LoginActivity extends AppCompatActivity {
 
         Button btnAnchor = findViewById(R.id.btnAnchor);
         Button btnAudience = findViewById(R.id.btnAudience);
-        btnAnchor.setOnClickListener(v -> {
+        etLogin = findViewById(R.id.etUserId);
+    }
+
+    public void login(View view) {
+        String userId = etLogin.getText().toString();
+        if (TextUtils.isEmpty(userId)) {
+            Toast.makeText(this, "请输入userId", Toast.LENGTH_SHORT).show();
+        } else {
+            UserModel.userId = userId;
             ProfileManager.getInstance().login(UserModel.userId, "我的直播间", new ProfileManager.ActionCallback() {
                 @Override
                 public void onSuccess() {
@@ -33,8 +45,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "登录失败", Toast.LENGTH_SHORT).show();
                 }
             });
-        });
-
-        btnAudience.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, RoomListActivity.class)));
+        }
     }
 }
