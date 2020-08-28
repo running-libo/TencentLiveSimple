@@ -246,7 +246,7 @@ public class CallService extends Service {
         String userId  = UserModel.userId;
         String userSig = GenerateTestUserSig.genTestUserSig(userId);
 //        boolean useCDNFirst = SPUtils.getInstance().getBoolean(TCConstants.USE_CDN_PLAY, false);
-        TRTCLiveRoomDef.TRTCLiveRoomConfig config = new TRTCLiveRoomDef.TRTCLiveRoomConfig(true, "请替换成您的业务服务器地址");
+        TRTCLiveRoomDef.TRTCLiveRoomConfig config = new TRTCLiveRoomDef.TRTCLiveRoomConfig(true, "libonet.club.livecdn.liveplay.myqcloud.com");
         mTRTCLiveRoom.login(GenerateTestUserSig.SDKAPPID, userId, userSig, config, (code, msg) -> {
             if (code == 0) {
                 mTRTCLiveRoom.setSelfProfile(UserModel.userName, UserModel.userAvatar, (code1, msg1) -> {

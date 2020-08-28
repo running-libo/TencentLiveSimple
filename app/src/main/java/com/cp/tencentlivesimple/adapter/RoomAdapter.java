@@ -39,6 +39,7 @@ public class RoomAdapter extends BaseRvAdapter<RoomListActivity.RoomInfo, Recycl
             Intent intent = new Intent(context, PullStreamActivity.class);
             intent.putExtra("roomId", data.roomId);
             intent.putExtra("url", data.playUrl);
+            intent.putExtra("anchorId", data.anchorId);
             context.startActivity(intent);
         });
     }

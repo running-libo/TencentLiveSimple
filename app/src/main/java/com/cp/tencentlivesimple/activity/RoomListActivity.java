@@ -71,7 +71,7 @@ public class RoomListActivity extends AppCompatActivity {
                             info.anchorId = trtcLiveRoomInfo.ownerId;
                             info.anchorName = trtcLiveRoomInfo.ownerName;
                             info.roomName = trtcLiveRoomInfo.roomName;
-                            info.roomId = String.valueOf(trtcLiveRoomInfo.roomId);
+                            info.roomId = trtcLiveRoomInfo.roomId;
                             info.coverUrl = trtcLiveRoomInfo.coverUrl;
                             info.audiencesNum = trtcLiveRoomInfo.memberCount;
                             info.playUrl = trtcLiveRoomInfo.streamUrl;
@@ -92,7 +92,7 @@ public class RoomListActivity extends AppCompatActivity {
 
     public static class RoomInfo {
         public String roomName;
-        public String roomId;
+        public int roomId;
         public String anchorName;
         public String coverUrl;
         public int    audiencesNum;
