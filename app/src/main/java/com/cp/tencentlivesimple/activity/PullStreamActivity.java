@@ -115,25 +115,25 @@ public class PullStreamActivity extends BasePermissionActivity implements IMLVBL
      * 设置视频播放状态监听
      */
     private void observePlayerEvent() {
-        livePlayer.setPlayListener(new ITXLivePlayListener() {
-            @Override
-            public void onPlayEvent(int event, Bundle bundle) {
-                switch (event) {
-                    case PLAY_ERR_NET_DISCONNECT:
-                    case PLAY_EVT_PLAY_END:
-                        Toast.makeText(PullStreamActivity.this, "视频播放已结束", Toast.LENGTH_SHORT).show();
-                        break;
-                    case PLAY_EVT_GET_MESSAGE:
-                        Toast.makeText(getApplicationContext(), "获取到消息", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-
-            @Override
-            public void onNetStatus(Bundle bundle) {
-
-            }
-        });
+//        livePlayer.setPlayListener(new ITXLivePlayListener() {
+//            @Override
+//            public void onPlayEvent(int event, Bundle bundle) {
+//                switch (event) {
+//                    case PLAY_ERR_NET_DISCONNECT:
+//                    case PLAY_EVT_PLAY_END:
+//                        Toast.makeText(PullStreamActivity.this, "视频播放已结束", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case PLAY_EVT_GET_MESSAGE:
+//                        Toast.makeText(getApplicationContext(), "获取到消息", Toast.LENGTH_SHORT).show();
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onNetStatus(Bundle bundle) {
+//
+//            }
+//        });
 
 //        MLVBLiveRoom.sharedInstance(getApplicationContext()).getCustomInfo(new GetCustomInfoCallback() {
 //            @Override
@@ -166,9 +166,9 @@ public class PullStreamActivity extends BasePermissionActivity implements IMLVBL
     }
 
     private void sendMessage(String message) {
-        if (TextUtils.isEmpty(message)) {
-            return;
-        }
+//        if (TextUtils.isEmpty(message)) {
+//            return;
+//        }
 
 //        MLVBLiveRoom.sharedInstance(getApplicationContext()).sendRoomTextMsg(message, new IMLVBLiveRoomListener.SendRoomTextMsgCallback() {
 //            @Override

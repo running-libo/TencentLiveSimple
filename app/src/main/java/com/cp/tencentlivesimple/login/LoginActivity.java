@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.cp.tencentlivesimple.R;
 import com.cp.tencentlivesimple.activity.RoomListActivity;
 import com.cp.tencentlivesimple.login.model.ProfileManager;
+import com.cp.tencentlivesimple.login.model.UserModel;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         Button btnAnchor = findViewById(R.id.btnAnchor);
         Button btnAudience = findViewById(R.id.btnAudience);
         btnAnchor.setOnClickListener(v -> {
-            ProfileManager.getInstance().login("123456", "我的直播间", new ProfileManager.ActionCallback() {
+            ProfileManager.getInstance().login(UserModel.userId, "我的直播间", new ProfileManager.ActionCallback() {
                 @Override
                 public void onSuccess() {
                     Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class UserModel implements Serializable {
     public String phone;
-    public String userId;
+    public static String userId = "123456";
     public String userSig;
     public String userName;
     public String userAvatar;
