@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,9 +57,7 @@ import static com.tencent.rtmp.TXLiveConstants.PLAY_EVT_PLAY_END;
  */
 public class PushStreamActivity extends BasePermissionActivity implements View.OnClickListener, TRTCLiveRoomDelegate {
     public static final String liveUrl = "rtmp://65799.livepush.myqcloud.com/HuyaLive/huyalive?txSecret=9cb224c7d598a79cbfc76f8ab61a847d&txTime=5FDCAC29";
-//    private TXLivePusher livePusher;
     private TXCloudVideoView videoView;
-//    private TXLivePushConfig pushConfig;
     private ImageView ivSwitch, ivSwitch2, ivPixel;
     private TextView tvStartLive, tvWatch, tvDuration;
     private CountDownTextView tvCountDown;
@@ -73,18 +73,12 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             handler.sendEmptyMessageDelayed(0, 1000);
         }
     };
-    private Handler getAudienceHandler = new Handler() {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            getAudienceLists();
-            getAudienceHandler.sendEmptyMessageDelayed(0, 3000);
-        }
-    };
     private boolean mShowLog;               // 表示是否显示Log面板
 
     /** 核心组件liveRoom */
     protected TRTCLiveRoom mLiveRoom;
     private int roomId;
+    protected boolean mIsCreatingRoom = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +90,6 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         roomId = getRoomId();
 
         initView();
-
-        setPushConfig();
 
         requestPermissions();
     }
@@ -125,7 +117,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
 
         setScaleEvent();
 
-        showLog();
+//        showLog();
 
         tvCountDown.setListener(new CountDownTextView.OnCountDownFinishListener() {
             @Override
@@ -156,7 +148,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
             public void onGranted() {
                 startPreview();
 
-                createRoom();
+                startCreateRoom();
             }
 
             @Override
@@ -171,18 +163,6 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         super.onResume();
 
         startPreview();
-    }
-
-    /**
-     * 设置推流配置
-     */
-    private void setPushConfig() {
-//        livePusher = new TXLivePusher(this);
-//        pushConfig = new TXLivePushConfig();
-//        pushConfig.setTouchFocus(true);  //开启手动聚焦
-//        pushConfig.enableNearestIP(true);
-//        livePusher.setConfig(pushConfig);
-//        livePusher.setRenderRotation(270);  //直播端旋转角度为270为正常角度
     }
 
     /**
@@ -393,49 +373,24 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
         }
     }
 
-//    /**
-//     * 登录账号
-//     */
-//    private void loginRoom() {
-////        LoginInfo loginInfo = new LoginInfo(GenerateTestUserSig.SDKAPPID, userId,
-////                "libo", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1598533687014&di=62d1d19b70073344e6f5010e5dbfb5c6&imgtype=0&src=http%3A%2F%2Fi1.17173cdn.com%2F2fhnvk%2FYWxqaGBf%2Fcms3%2FKhIMufbldqvFqra.png", GenerateTestUserSig.genTestUserSig(userId));
-////        MLVBLiveRoom.sharedInstance(getApplicationContext()).login(loginInfo, new IMLVBLiveRoomListener.LoginCallback() {
-////            @Override
-////            public void onError(int errCode, String errInfo) {
-////                Toast.makeText(getApplicationContext(), "登录失败,errCode= " + errCode, Toast.LENGTH_SHORT).show();
-////            }
-////
-////            @Override
-////            public void onSuccess() {
-////                Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
-////                createRoom();
-////            }
-////        });
-//
-//    }
+    public void startCreateRoom() {
+        if (mIsCreatingRoom) {
+            return;
+        }
+//        String roomName = mEditLiveRoomName.getText().toString().trim();
+//        if (TextUtils.isEmpty(roomName)) {
+//            ToastUtils.showLong("房间名不能为空");
+//            return;
+//        }
+//        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(mEditLiveRoomName.getWindowToken(), 0);
+//        mRoomName = roomName;
 
-    /**
-     * 获取房间观众
-     */
-    private void getAudienceLists() {
-//        MLVBLiveRoom.sharedInstance(getApplicationContext()).getAudienceList(new IMLVBLiveRoomListener.GetAudienceListCallback() {
-//            @Override
-//            public void onError(int errCode, String errInfo) {
-//                Toast.makeText(getApplicationContext(), "获取观众失败,errCode=" + errCode + " errInfo " + errInfo, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onSuccess(ArrayList<AudienceInfo> audienceInfoList) {
-//                Toast.makeText(getApplicationContext(), "获取到" + audienceInfoList.size() + "个观众", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-    }
-
-    public void createRoom() {
+//        enterRoom();
         RoomManager.getInstance().createRoom(roomId, TCConstants.TYPE_LIVE_ROOM, new RoomManager.ActionCallback() {
             @Override
             public void onSuccess() {
-                enterRoom();
+                createRoom();
             }
 
             @Override
@@ -447,6 +402,27 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
 //                    mIsCreatingRoom = false;
 //                    ToastUtils.showLong("创建房间失败[" + code + "]:" + msg);
 //                }
+            }
+        });
+    }
+
+    public static final int ERROR_ROOM_ID_EXIT = -1301;
+
+    public void createRoom() {
+        mIsCreatingRoom = true;
+        RoomManager.getInstance().createRoom(roomId, TCConstants.TYPE_LIVE_ROOM, new RoomManager.ActionCallback() {
+            @Override
+            public void onSuccess() {
+                enterRoom();
+            }
+
+            @Override
+            public void onFailed(int code, String msg) {
+                if (code == ERROR_ROOM_ID_EXIT) {
+                    onSuccess();
+                } else {
+                    mIsCreatingRoom = false;
+                }
             }
         });
     }
@@ -466,7 +442,7 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
                 Toast.makeText(getApplicationContext(), "创建房间成功", Toast.LENGTH_SHORT).show();
                 //创建房间成功，开始推流
             } else {
-                Toast.makeText(getApplicationContext(), "创建房间步骤2失败  " + msg, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "创建房间步骤2失败  " + msg, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -481,7 +457,22 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
      * 退出页面退出房间
      */
     public void exitRoom() {
+        RoomManager.getInstance().destroyRoom(roomId, TCConstants.TYPE_LIVE_ROOM, new RoomManager.ActionCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFailed(int code, String msg) {
+
+            }
+        });
         mLiveRoom.exitRoom((code, msg) -> Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show());
+
+        mLiveRoom.destroyRoom((code, msg) -> {
+
+        });
     }
 
     /**
@@ -489,55 +480,13 @@ public class PushStreamActivity extends BasePermissionActivity implements View.O
      */
     private void startPush() {
         mLiveRoom.setAudioQuality(TRTCCloudDef.TRTC_AUDIO_QUALITY_DEFAULT);  //设置默认画质
-        mLiveRoom.startPublish(UserModel.userId + "_stream", (code, msg) -> {
+        mLiveRoom.startPublish(liveUrl, (code, msg) -> {
             if (code == 0) {
                 Toast.makeText(PushStreamActivity.this, "直播已开始", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(PushStreamActivity.this, "开播失败 " + msg, Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-//    /**
-//     * 创建房间
-//     */
-//    private void createRoom() {
-//        mLiveRoom.createRoom(, );
-////        MLVBLiveRoom.sharedInstance(getApplicationContext()).startLocalPreview(true, videoView);
-////        MLVBLiveRoom.sharedInstance(getApplicationContext()).createRoom(userId, "房间信息", new IMLVBLiveRoomListener.CreateRoomCallback() {
-////            @Override
-////            public void onError(int errCode, String errInfo) {
-////                Toast.makeText(getApplicationContext(), "创建房间失败,errCode=" + errCode + "  " + errInfo, Toast.LENGTH_SHORT).show();
-////            }
-////
-////            @Override
-////            public void onSuccess(String roomId) {
-////                Toast.makeText(getApplicationContext(), "创建房间成功, RoomID=" + roomId, Toast.LENGTH_SHORT).show();
-////                intervalGetAudienceList();
-////            }
-////        });
-//    }
-
-//    /**
-//     * 进入房间
-//     * @param roomId
-//     */
-//    private void enterRoom(String roomId) {
-////        MLVBLiveRoom.sharedInstance(getApplicationContext()).enterRoom(roomId, videoView, new IMLVBLiveRoomListener.EnterRoomCallback() {
-////            @Override
-////            public void onError(int errCode, String errInfo) {
-////                Toast.makeText(getApplicationContext(), "进入房间失败 errCode=" + errCode + "  " + errInfo, Toast.LENGTH_SHORT).show();
-////            }
-////
-////            @Override
-////            public void onSuccess() {
-////                Toast.makeText(getApplicationContext(), "进入房间成功", Toast.LENGTH_SHORT).show();
-////            }
-////        });
-//    }
-
-    private void intervalGetAudienceList() {
-        getAudienceHandler.sendEmptyMessage(0);
     }
 
 }

@@ -26,9 +26,6 @@ public class RoomListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //初始化RoomManager
-        RoomManager.getInstance().initSdkAppId(GenerateTestUserSig.SDKAPPID);
-
         setContentView(R.layout.activity_room_list);
 
         rvRoom = findViewById(R.id.recyclerview);

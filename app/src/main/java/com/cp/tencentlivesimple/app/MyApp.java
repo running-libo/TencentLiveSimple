@@ -1,6 +1,9 @@
 package com.cp.tencentlivesimple.app;
 
 import android.app.Application;
+
+import com.cp.tencentlivesimple.livingroom.GenerateTestUserSig;
+import com.cp.tencentlivesimple.login.model.RoomManager;
 import com.tencent.rtmp.TXLiveBase;
 
 /**
@@ -17,7 +20,11 @@ public class MyApp extends Application {
         super.onCreate();
 
         //腾讯云初始化
+        TXLiveBase.setConsoleEnabled(true);
         TXLiveBase.getInstance().setLicence(this, licenseUrl, licenseKey);
+
+        //初始化RoomManager
+        RoomManager.getInstance().initSdkAppId(GenerateTestUserSig.SDKAPPID);
     }
 
 }
