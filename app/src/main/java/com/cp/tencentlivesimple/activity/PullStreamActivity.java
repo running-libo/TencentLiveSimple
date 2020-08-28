@@ -18,7 +18,10 @@ import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 
+import java.util.Map;
+
 import static com.tencent.rtmp.TXLiveConstants.PLAY_ERR_NET_DISCONNECT;
+import static com.tencent.rtmp.TXLiveConstants.PLAY_EVT_GET_MESSAGE;
 import static com.tencent.rtmp.TXLiveConstants.PLAY_EVT_PLAY_END;
 
 /**
@@ -120,6 +123,9 @@ public class PullStreamActivity extends BasePermissionActivity implements IMLVBL
                     case PLAY_EVT_PLAY_END:
                         Toast.makeText(PullStreamActivity.this, "视频播放已结束", Toast.LENGTH_SHORT).show();
                         break;
+                    case PLAY_EVT_GET_MESSAGE:
+                        Toast.makeText(getApplicationContext(), "获取到消息", Toast.LENGTH_SHORT).show();
+                        break;
                 }
             }
 
@@ -129,7 +135,17 @@ public class PullStreamActivity extends BasePermissionActivity implements IMLVBL
             }
         });
 
+        MLVBLiveRoom.sharedInstance(getApplicationContext()).getCustomInfo(new GetCustomInfoCallback() {
+            @Override
+            public void onError(int errCode, String errInfo) {
 
+            }
+
+            @Override
+            public void onGetCustomInfo(Map<String, Object> customInfo) {
+                Toast.makeText(getApplicationContext(), "收到消息 " + customInfo.get(""), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
